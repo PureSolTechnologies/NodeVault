@@ -1,0 +1,62 @@
+{
+  "name": "@puresoltechnologies/nodevault",
+  "version": "0.1.0",
+  "description": "An enhanced NodeJS package manager for SNAPSHOTs and development.",
+  "author": {
+    "name": "Rick-Rainer Ludwig",
+    "email": "ludwig@puresol-technologies.com",
+    "url": "https://puresol-technologies.com"
+  },
+  "maintainers": [
+    {
+      "name": "Rick-Rainer Ludwig",
+      "email": "ludwig@puresol-technologies.com"
+    }
+  ],
+  "type": "module",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "bin": {
+    "nova": "./bin/nova.mjs"
+  },
+  "directories": {
+    "dist": "dist",
+    "src": "src",
+    "test": "test"
+  },
+  "scripts": {
+    "compile": "tsc",
+    "genver": "node ./src/generate-version.mjs",
+    "build": "npm run genver && npm run compile",
+    "watch": "tsc -w",
+    "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js",
+    "test:integration": "node --experimental-vm-modules node_modules/jest/bin/jest.js --config jest.integration.config.ts --passWithNoTests",
+    "update all deps": "ncu -u"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/PureSolTechnologies/NodeVault.git"
+  },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/PureSolTechnologies/NodeVault.git/issues"
+  },
+  "homepage": "https://github.com/PureSolTechnologies/NodeVault",
+  "devDependencies": {
+    "@tsconfig/node20": "^20.1.4",
+    "@types/jest": "^29.5.12",
+    "@types/node": "^20.12.7",
+    "@types/tar": "^6.1.13",
+    "jest": "^29.7.0",
+    "jest-junit": "^16.0.0",
+    "source-map-support": "^0.5.21",
+    "ts-jest": "^29.1.2",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.4.5"
+  },
+  "dependencies": {
+    "@rushstack/ts-command-line": "^4.19.2",
+    "axios": "^1.6.8",
+    "tar": "^7.0.1"
+  }
+}

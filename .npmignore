@@ -1,0 +1,8 @@
+# Ignore everything per default
+*
+
+# Include mandatory package.json into package
+!package.json
+
+# Include dist directory with build artifacts
+!dist/**
