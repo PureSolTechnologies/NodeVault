@@ -8,7 +8,7 @@ const packageJsonPath = resolve(__dirname, '../package.json');
 const packageJsonContent = readFileSync(packageJsonPath, 'utf-8');
 const packageJson = JSON.parse(packageJsonContent);
 
-const versionFilePath = resolve(__dirname, 'src', '../version.ts');
+const versionFilePath = resolve(__dirname, 'src', '../version/version.ts');
 
 const versionFileContent = `
     // This file is auto-generated during the build process.

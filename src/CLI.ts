@@ -1,5 +1,5 @@
 import { CommandLineParser } from '@rushstack/ts-command-line';
-
+import {VersionAction} from './version/VersionAction.js'
 export class CLI extends CommandLineParser {
 
     private readonly inputFile = "package.json";
@@ -10,6 +10,7 @@ export class CLI extends CommandLineParser {
             toolFilename: 'nova',
             toolDescription: 'An enhanced NodeJS package manager for SNAPSHOTs and development.'
         });
+        this.addAction(new VersionAction());
     }
 
     protected onDefineParameters(): void {
@@ -22,6 +23,7 @@ export class CLI extends CommandLineParser {
 
     protected async onExecute(): Promise<void> {
         console.log(`Using '${this.inputFile}' to install into '${this.targetFolder}'...`)
+        await super.onExecute();
         console.log("done.")
     }
 
