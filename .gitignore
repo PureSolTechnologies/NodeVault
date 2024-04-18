@@ -1,0 +1,9 @@
+node_modules/
+dist/
+*.log
+coverage/
+junit.*.xml
+version.ts
+*.tgz
+# Next are the pattern for integration test folders
+_*_
