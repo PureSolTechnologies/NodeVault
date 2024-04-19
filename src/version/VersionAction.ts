@@ -1,6 +1,7 @@
 import { CommandLineAction } from "@rushstack/ts-command-line";
 import { NOVA_TIMESTAMP, NOVA_VERSION } from "./version.js";
 
+
 /**
  * NoVa version action
  */

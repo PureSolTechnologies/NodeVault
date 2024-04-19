@@ -15,3 +15,24 @@ are:
 The name "NodeVault" plays on the idea of a secure repository where you can store and manage your NodeJS packages with confidence. It's concise, evokes the sense of security, and hints at the valuable packages stored within.
 
 The command line shortcut `nova` means something like a new star what we hope this tool becomes. ;-) "NoVa" is a shortcut, adding a modern touch to the name. It's catchy and easy to remember.
+
+
+## Development and Contributions
+
+### Suggestions
+
+Install the following plugins:
+
+- TypeScript
+- Jest Runner
+
+In VS Code, enable auto-formatting and import organization:
+
+````
+    "editor.formatOnSave": true,
+    "[typescript]": {
+        "editor.codeActionsOnSave": {
+            "source.organizeImports": true
+        }
+    }
+````
