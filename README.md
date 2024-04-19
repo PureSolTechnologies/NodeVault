@@ -14,6 +14,4 @@ are:
 
 The name "NodeVault" plays on the idea of a secure repository where you can store and manage your NodeJS packages with confidence. It's concise, evokes the sense of security, and hints at the valuable packages stored within.
 
-The command line shortcut `nova` means something like a new star what we hope
-this tool becomes. ;-)
-
+The command line shortcut `nova` means something like a new star what we hope this tool becomes. ;-) "NoVa" is a shortcut, adding a modern touch to the name. It's catchy and easy to remember.

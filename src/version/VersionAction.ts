@@ -1,12 +1,12 @@
 import { CommandLineAction } from "@rushstack/ts-command-line";
-import { NOVA_TIMESTAMP, NOVA_VERSION} from "./version.js";
+import { NOVA_TIMESTAMP, NOVA_VERSION } from "./version.js";
 
 /**
- * SPAM version action
+ * NoVa version action
  */
 export class VersionAction extends CommandLineAction {
 
-    public readonly version: string =NOVA_VERSION;
+    public readonly version: string = NOVA_VERSION;
     public readonly timestamp: string = NOVA_TIMESTAMP;
 
     constructor() {
