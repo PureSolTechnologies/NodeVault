@@ -1,5 +1,5 @@
-import { Exception } from "./Exception.js";
 import log4js from 'log4js';
+import { Exception } from "./Exception.js";
 
 /**
  * This is a convenience class to bundle the logger configuration and 
