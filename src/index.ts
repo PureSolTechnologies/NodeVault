@@ -6,6 +6,7 @@ export * from './NoVaLogger.js';
 export * from './PackageJson.js';
 export * from './Settings.js';
 export * from './Utilities.js';
+export * from './install/index.js';
 export * from './model/index.js';
 export * from './registries/index.js';
 export * from './scan/index.js';

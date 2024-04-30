@@ -5,7 +5,7 @@ import { join, normalize } from "path";
 import { Exception } from "../Exception.js";
 import { PackageJsonContent } from "../PackageJson.js";
 import { Utilities } from '../Utilities.js';
-import { Dependency, DependencyType, FileLink, GitLink, Nexus, PackageJson, VersionOrLinkType, VersionRange } from '../index.js';
+import { Dependency, DependencyType, FileLink, GitLink, PackageJson, Registry, VersionOrLinkType, VersionRange } from '../index.js';
 import { GitHubLink } from '../model/GitHubLink.js';
 import { NpmLink } from "../model/NpmLink.js";
 import { Package } from "../model/Package.js";
@@ -28,7 +28,7 @@ export class Vault {
      * @param novaFolder is the NoVa folder for finding the vault folder (<nova folder>/vaultV).
      * @returns The singleton instance is returned.
      */
-    public static init(registry: Nexus, novaFolder: string): Vault {
+    public static init(registry: Registry, novaFolder: string): Vault {
         if (Vault.instance) {
             throw new Exception("Vault was already initialized!");
         }
@@ -56,7 +56,7 @@ export class Vault {
     private readonly vaultFolder: string;
     private readonly logger = log4js.getLogger();
 
-    private constructor(private readonly registry: Nexus, novaFolder: string) {
+    private constructor(private readonly registry: Registry, novaFolder: string) {
         this.vaultFolder = join(novaFolder, "vault");
         this.createVaultFolder();
     }

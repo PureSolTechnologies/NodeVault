@@ -1,7 +1,11 @@
 import { CommandLineParser } from '@rushstack/ts-command-line';
 import log4js from 'log4js';
+import { NoVa } from './NoVa.js';
 import { NoVaLogger } from './NoVaLogger.js';
+import { InstallAction } from './install/InstallAction.js';
+import { NPMjs } from './registries/NPMjs.js';
 import { ScanAction } from './scan/ScanAction.js';
+import { Vault } from './vault/Vault.js';
 import { VersionAction } from './version/VersionAction.js';
 
 export class CLI extends CommandLineParser {
@@ -17,6 +21,7 @@ export class CLI extends CommandLineParser {
         });
         this.addAction(new VersionAction());
         this.addAction(new ScanAction(this.inputFile));
+        this.addAction(new InstallAction(this.inputFile, this.targetFolder));
     }
 
     protected onDefineParameters(): void {
@@ -32,11 +37,16 @@ export class CLI extends CommandLineParser {
         await this.initLogger();
         this.logger.info("NodeVault started...");
         try {
-            console.log(`Using '${this.inputFile}' to install into '${this.targetFolder}'...`)
-            await super.onExecute();
-            await this.logFinish(start);
+            Vault.init(new NPMjs(), NoVa.novaFolder);
+            try {
+                console.log(`Using '${this.inputFile}' to install into '${this.targetFolder}'...`)
+                await super.onExecute();
+                await this.logFinish(start);
+            } finally {
+                Vault.shutdown();
+            }
         } finally {
-            await NoVaLogger.shutdown();
+            NoVaLogger.shutdown();
         }
     }
 

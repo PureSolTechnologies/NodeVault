@@ -21,12 +21,11 @@ describe("CLI tests", () => {
         expect(action.version).toBe(NOVA_VERSION);
     }, 10000);
 
-    // TODO
-    // it("Scan NoVa", async () => {
-    //     const cli = new CLI();
-    //     expect(await cli.execute(["scan"])).toBeTruthy();
-    //     expect(cli.selectedAction).toBeDefined();
-    //     expect(cli.selectedAction!.actionName).toEqual('scan');
-    // }, 10000);
+    it("Scan NoVa", async () => {
+        const cli = new CLI();
+        expect(await cli.execute(["scan"])).toBeTruthy();
+        expect(cli.selectedAction).toBeDefined();
+        expect(cli.selectedAction!.actionName).toEqual('scan');
+    }, 10000);
 
 });
