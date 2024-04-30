@@ -1,6 +1,7 @@
 import { CommandLineParser } from '@rushstack/ts-command-line';
 import log4js from 'log4js';
 import { NoVaLogger } from './NoVaLogger.js';
+import { ScanAction } from './scan/ScanAction.js';
 import { VersionAction } from './version/VersionAction.js';
 
 export class CLI extends CommandLineParser {
@@ -15,6 +16,7 @@ export class CLI extends CommandLineParser {
             toolDescription: 'An enhanced NodeJS package manager for SNAPSHOTs and development.'
         });
         this.addAction(new VersionAction());
+        this.addAction(new ScanAction(this.inputFile));
     }
 
     protected onDefineParameters(): void {

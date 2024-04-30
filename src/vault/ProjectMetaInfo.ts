@@ -1,3 +1,7 @@
+/**
+ * This interface defines the part of the project meta information which 
+ * contains the version information for a specific version.
+ */
 export interface VersionInformation {
     name: string;
     version: string;
@@ -9,6 +13,9 @@ export interface VersionInformation {
     optionalDependencies: { [key: string]: string } | undefined;
 }
 
+/**
+ * This interface defines the data which is returned by registries.
+ */
 export interface ProjectMetaInfo {
     _id: string;
     name: string;
@@ -16,4 +23,3 @@ export interface ProjectMetaInfo {
     versions: { [key: string]: VersionInformation }
     time: { [key: string]: string }
 }
-

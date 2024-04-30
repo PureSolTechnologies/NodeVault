@@ -8,6 +8,8 @@ export * from './Settings.js';
 export * from './Utilities.js';
 export * from './model/index.js';
 export * from './registries/index.js';
+export * from './scan/index.js';
+export * from './tree/index.js';
 export * from './vault/index.js';
 export * from './version/index.js';
 

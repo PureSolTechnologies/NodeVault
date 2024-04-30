@@ -1,5 +1,5 @@
 import path from "path";
-import { Nexus, NoVaLogger, Utilities, Vault } from "../../src/index.js";
+import { NPMjs, NoVaLogger, Utilities, Vault } from "../../src/index.js";
 
 export class IntegrationTest {
 
@@ -26,7 +26,7 @@ export class IntegrationTest {
         Utilities.createFolder(this.baseFolder);
         Utilities.createFolder(this.vaultFolder);
         Utilities.createFolder(this.targetFolder);
-        this.vault = Vault.init(new Nexus(), this.baseFolder);
+        this.vault = Vault.init(new NPMjs(), this.baseFolder);
     }
 
     public close() {
