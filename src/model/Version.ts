@@ -86,4 +86,10 @@ export class Version extends SemVer {
         }
     }
 
+    public compare(other: string | SemVer | undefined): 0 | 1 | -1 {
+        if (!other) {
+            return 1;
+        }
+        return super.compare(other);
+    }
 } 

@@ -1,4 +1,4 @@
-import log4js from 'log4js';
+import log4js, { Configuration, Level } from 'log4js';
 import { Exception } from "./Exception.js";
 
 /**
@@ -9,20 +9,20 @@ export class NoVaLogger {
 
     private static instance: NoVaLogger | undefined = undefined;
 
-    public static async init(logFolder: string, logLevel: log4js.Level): Promise<NoVaLogger> {
+    public static init(logFolder: string, logLevel: Level = log4js.levels.INFO): NoVaLogger {
         if (NoVaLogger.instance) {
             throw new Exception("NoVa logger was already initialized!");
         }
         NoVaLogger.instance = new NoVaLogger(logFolder, logLevel);
-        await NoVaLogger.instance.init();
+        NoVaLogger.instance.init();
         return NoVaLogger.instance;
     }
 
-    public static async shutdown(): Promise<void> {
+    public static shutdown(): void {
         if (!NoVaLogger.instance) {
             throw new Exception("NoVa logger was not yet initialized.");
         }
-        await NoVaLogger.instance.shutdown();
+        NoVaLogger.instance.shutdown();
         NoVaLogger.instance = undefined;
     }
 
@@ -33,18 +33,22 @@ export class NoVaLogger {
         return NoVaLogger.instance;
     }
 
-    private constructor(readonly logFolder: string, readonly logLevel: log4js.Level) {
-    }
+    readonly configuration: Configuration;
 
-    private async init(): Promise<void> {
+    private constructor(readonly logFolder: string, readonly logLevel: Level) {
         const time = new Date().toISOString();
-        log4js.configure({
+        this.configuration = {
             appenders: { node_modules: { type: "file", filename: `${this.logFolder}/nova-${time}.log` } },
             categories: { default: { appenders: ["node_modules"], level: this.logLevel.levelStr } },
-        });
+        };
     }
 
-    private async shutdown(): Promise<void> {
+    private init(): Configuration {
+        log4js.configure(this.configuration);
+        return this.configuration;
+    }
+
+    private shutdown(): void {
         log4js.shutdown();
     }
 

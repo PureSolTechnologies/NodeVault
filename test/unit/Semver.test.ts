@@ -1,3 +1,4 @@
+import { describe, expect, test } from "@jest/globals";
 import { Range, SemVer } from "semver";
 
 describe("SemVer tests", () => {

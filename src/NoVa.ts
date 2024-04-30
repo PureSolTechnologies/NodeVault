@@ -1,4 +1,5 @@
 import os from 'os';
+import path from "path";
 
 /**
  * This class contains the central settings and configuration for all parts
@@ -13,6 +14,10 @@ export class NoVa {
     /**
      * NodeVault's folder for the vault and configuration.
      */
-    public static readonly novaFolder: string = `${NoVa.homeFolder}/.nova`;
+    public static readonly novaFolder: string = path.join(NoVa.homeFolder, ".nova");
+    /**
+     * NodeVault's global settings file.
+     */
+    public static readonly settingsFile: string = path.join(NoVa.novaFolder, "settings.json");
 
 }

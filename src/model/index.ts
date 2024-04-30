@@ -1,3 +1,4 @@
+export * from "./Dependency.js";
 export * from "./DependencyType.js";
 export * from "./FileLink.js";
 export * from "./GitHubLink.js";

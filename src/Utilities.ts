@@ -16,7 +16,7 @@ export class Utilities {
      * Idempotent creation of a new folder incl. potential parents. If it does exists, nothing happens.
      * @param folder the path for the new folder.
      */
-    static async createFolder(folder: PathLike) {
+    static createFolder(folder: PathLike): void {
         if (!fs.existsSync(folder)) {
             Utilities.logger.debug(`Creating folder '${folder}...`);
             fs.mkdirSync(folder, { recursive: true });

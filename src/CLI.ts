@@ -1,7 +1,7 @@
 import { CommandLineParser } from '@rushstack/ts-command-line';
-import { VersionAction } from './version/VersionAction.js'
 import log4js from 'log4js';
 import { NoVaLogger } from './NoVaLogger.js';
+import { VersionAction } from './version/VersionAction.js';
 
 export class CLI extends CommandLineParser {
 
