@@ -5,6 +5,8 @@ import { NoVaLogger } from './NoVaLogger.js';
 import { InstallAction } from './install/InstallAction.js';
 import { NPMjs } from './registries/NPMjs.js';
 import { ScanAction } from './scan/ScanAction.js';
+import { ShareAction } from './share/ShareAction.js';
+import { UpdateAction } from './update/UpdateAction.js';
 import { Vault } from './vault/Vault.js';
 import { VersionAction } from './version/VersionAction.js';
 
@@ -22,6 +24,8 @@ export class CLI extends CommandLineParser {
         this.addAction(new VersionAction());
         this.addAction(new ScanAction(this.inputFile));
         this.addAction(new InstallAction(this.inputFile, this.targetFolder));
+        this.addAction(new UpdateAction(this.inputFile, this.targetFolder));
+        this.addAction(new ShareAction(this.inputFile));
     }
 
     protected onDefineParameters(): void {

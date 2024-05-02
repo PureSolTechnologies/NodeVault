@@ -57,6 +57,16 @@ describe("Version Range tests", () => {
         expect(patchRange.contains(new Version(2, 0, 0))).toBeFalsy();
     });
 
+    test("minor range '^29.0.0", () => {
+        const patchRange = new VersionRange("^29.0.0");
+        expect(patchRange.contains(new Version(28, 9, 9))).toBeFalsy();
+        expect(patchRange.contains(new Version(29, 0, 0))).toBeTruthy();
+        expect(patchRange.contains(new Version(29, 0, 1))).toBeTruthy();
+        expect(patchRange.contains(new Version(29, 1, 0))).toBeTruthy();
+        expect(patchRange.contains(new Version(30, 0, 0))).toBeFalsy();
+        expect(patchRange.contains(Version.of("30.0.0-alpha.3"))).toBeFalsy();
+    });
+
     /*
      * Real version found in dependencies.
      */

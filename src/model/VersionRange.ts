@@ -150,21 +150,21 @@ export class VersionRange {
             this.ranges.push(new Range(
                 new Version(major, 0, 0, prerelease),
                 true,
-                new Version(major + 1, 0, 0, prerelease),
+                new Version(major, Number.MAX_SAFE_INTEGER, Number.MAX_SAFE_INTEGER, prerelease),
                 false
             ));
         } else if ((match[4] === 'x') || (match[4] === '*')) {
             this.ranges.push(new Range(
                 new Version(major, minor, 0, prerelease),
                 true,
-                new Version(major, minor + 1, 0, prerelease),
+                new Version(major, minor, Number.MAX_SAFE_INTEGER, prerelease),
                 false
             ));
         } else if ((match[2] !== 'x') && (match[2] !== '*') && (!match[4])) {
             this.ranges.push(new Range(
                 new Version(major, minor, 0, prerelease),
                 true,
-                new Version(major, minor + 1, 0, prerelease),
+                new Version(major, minor, Number.MAX_SAFE_INTEGER, prerelease),
                 false
             ));
         } else {
@@ -211,18 +211,18 @@ export class VersionRange {
         const baseVersion: Version = new Version(Number(match[3]), Number(match[5] ? match[5] : 0), Number(match[7] ? match[7] : 0), match[9]);
         switch (type) {
             case '~':
-                this.ranges.push(new Range(baseVersion, true, new Version(baseVersion.major, baseVersion.minor + 1, 0), false));
+                this.ranges.push(new Range(baseVersion, true, new Version(baseVersion.major, baseVersion.minor, Number.MAX_SAFE_INTEGER), false));
                 break;
             case '^':
-                this.ranges.push(new Range(baseVersion, true, new Version(baseVersion.major + 1, 0, 0), false));
+                this.ranges.push(new Range(baseVersion, true, new Version(baseVersion.major, Number.MAX_SAFE_INTEGER, Number.MAX_SAFE_INTEGER), false));
                 break;
             case '':
             case '=':
             case undefined:
                 if (!match[5]) {
-                    this.ranges.push(new Range(baseVersion, true, new Version(baseVersion.major + 1, 0, 0), false));
+                    this.ranges.push(new Range(baseVersion, true, new Version(baseVersion.major, Number.MAX_SAFE_INTEGER, Number.MAX_SAFE_INTEGER), false));
                 } else if (!match[7]) {
-                    this.ranges.push(new Range(baseVersion, true, new Version(baseVersion.major, baseVersion.minor + 1, 0), false));
+                    this.ranges.push(new Range(baseVersion, true, new Version(baseVersion.major, baseVersion.minor, Number.MAX_SAFE_INTEGER), false));
                 } else {
                     this.ranges.push(new Range(baseVersion, true, baseVersion, true));
                 }

@@ -10,7 +10,9 @@ export * from './install/index.js';
 export * from './model/index.js';
 export * from './registries/index.js';
 export * from './scan/index.js';
+export * from './share/index.js';
 export * from './tree/index.js';
+export * from './update/index.js';
 export * from './vault/index.js';
 export * from './version/index.js';
 
