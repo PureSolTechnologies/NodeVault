@@ -42,8 +42,8 @@ describe("Version RecExp tests", () => {
         expect(version.major).toBe(6);
         expect(version.minor).toBe(0);
         expect(version.patch).toBe(14);
-        expect(version.prerelease).toEqual(["unstable", "3629a7b", 0]);
-        expect(version.build).toEqual(["3629a7b"]);
+        expect(version.prerelease).toEqual("unstable.3629a7b.0");
+        expect(version.buildMetaInfo).toEqual("3629a7b");
         expect(version.isSnapshot()).toBeFalsy();
         expect(version.toString()).toBe("6.0.14-unstable.3629a7b.0+3629a7b");
     });
@@ -56,8 +56,8 @@ describe("Version RecExp tests", () => {
         expect(version.major).toBe(6);
         expect(version.minor).toBe(0);
         expect(version.patch).toBe(14);
-        expect(version.prerelease).toEqual(["unstable", "3629a7b", 0]);
-        expect(version.build).toEqual(["3629a7b", "2ndBuildPart"]);
+        expect(version.prerelease).toEqual("unstable.3629a7b.0");
+        expect(version.buildMetaInfo).toEqual("3629a7b.2ndBuildPart");
         expect(version.isSnapshot()).toBeFalsy();
         expect(version.toString()).toBe("6.0.14-unstable.3629a7b.0+3629a7b.2ndBuildPart");
     });

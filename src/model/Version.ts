@@ -1,11 +1,10 @@
-import { SemVer } from "semver";
 import { Exception } from "../Exception.js";
 
 /**
  * This class repesents a single version based on semantic versioning.
  * (https://semver.org/)
  */
-export class Version extends SemVer {
+export class Version {
 
     /**
      * A single version numeral as defined in SemVer. It already includes a 
@@ -48,48 +47,72 @@ export class Version extends SemVer {
 
     readonly snapshot: boolean;
 
-    constructor(major: number,
-        minor: number,
-        patch: number,
-        prerelease?: string,
-        buildMetaInfo?: string) {
-        super(`${major}.${minor}.${patch}${prerelease ? "-" + prerelease : ""}${buildMetaInfo ? "+" + buildMetaInfo : ""}`);
+    constructor(readonly major: number,
+        readonly minor: number,
+        readonly patch: number,
+        readonly prerelease?: string,
+        readonly buildMetaInfo?: string) {
         this.snapshot = prerelease?.toUpperCase() === "SNAPSHOT";
     }
 
-    public isSnapshot(): boolean {
+    isSnapshot(): boolean {
         return this.snapshot;
     }
 
-    public isPreRelease(): boolean {
+    isPreRelease(): boolean {
         return this.prerelease !== undefined;
     }
 
-    public equals(other: any | undefined): boolean {
+    toString(): string {
+        return `${this.major}.${this.minor}.${this.patch}${this.prerelease ? "-" + this.prerelease : ""}${this.buildMetaInfo ? "+" + this.buildMetaInfo : ""}`;
+    }
+
+    equals(other: any | undefined): boolean {
         if (!(other instanceof Version)) {
             return false;
         }
         if (other) {
-            return this.compare(other) == 0;
+            return this.major === other.major
+                && this.minor === other.minor
+                && this.patch === other.patch
+                && this.prerelease === other.prerelease
+                && this.snapshot === other.snapshot;
         } else {
             return false;
         }
     }
 
-    public toString(): string {
-        if (!this.build || this.build.length == 0) {
-            return super.toString();
+    compare(other: Version | undefined): number {
+        if (other) {
+            if (this.equals(other)) {
+                return 0;
+            }
+            if (this.major !== other.major) {
+                return this.major < other.major ? -1 : 1;
+            }
+            if (this.minor !== other.minor) {
+                return this.minor < other.minor ? -1 : 1;
+            }
+            if (this.patch !== other.patch) {
+                return this.patch < other.patch ? -1 : 1;
+            }
+            if (this.prerelease) {
+                if (!other.prerelease) {
+                    return -1;
+                }
+                const prereleaseRelation = this.prerelease.localeCompare(other.prerelease);
+                if (prereleaseRelation !== 0) {
+                    return prereleaseRelation;
+                }
+            } else if (other.prerelease) {
+                return 1;
+            }
+            if (this.snapshot !== other.snapshot) {
+                return this.snapshot ? -1 : 1;
+            }
+            return 0;
         } else {
-            let build = "";
-            this.build.forEach((v, i, a) => build += (i > 0 ? "." : "") + v);
-            return super.toString() + "+" + build;
-        }
-    }
-
-    public compare(other: string | SemVer | undefined): 0 | 1 | -1 {
-        if (!other) {
             return 1;
         }
-        return super.compare(other);
     }
 } 

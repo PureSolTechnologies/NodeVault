@@ -11,10 +11,10 @@ export class GenericRegistry implements Registry {
 
     constructor(readonly baseURL: string) { }
 
-    async download(url: string, target: PathLike): Promise<PathLike> {
+    async download(url: URL, target: PathLike): Promise<PathLike> {
         const response = await axios<Readable, AxiosResponse<Readable>>({
             method: 'get',
-            url,
+            url: url.toString(),
             responseType: 'stream',
             httpAgent: new http.Agent({ keepAlive: false }),
             httpsAgent: new https.Agent({ keepAlive: false }),
@@ -46,6 +46,6 @@ export class GenericRegistry implements Registry {
     }
 
     async downloadProjectMetaInfo(projectName: string, target: PathLike): Promise<void> {
-        await this.download(`${this.baseURL}/${projectName}`, target);
+        await this.download(new URL(`${this.baseURL}/${projectName}`), target);
     }
 }

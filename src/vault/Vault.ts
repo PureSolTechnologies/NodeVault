@@ -57,7 +57,7 @@ export class Vault {
     private readonly logger = log4js.getLogger();
 
     private constructor(private readonly registry: Registry, novaFolder: string) {
-        this.vaultFolder = join(novaFolder, "vault");
+        this.vaultFolder = join(novaFolder.toString(), "vault");
         this.createVaultFolder();
     }
 
@@ -154,7 +154,7 @@ export class Vault {
         return join(this.getPackageFolder(packageName, packageVersion), "package.tgz");
     }
 
-    private async getPackageDownloadUrl(packageName: string, packageVersion: Version): Promise<string> {
+    private async getPackageDownloadUrl(packageName: string, packageVersion: Version): Promise<URL> {
         const projectMetaInfo = await this.updateProjectMetaInfo(packageName, false);
         let metaInfo;
         try {
@@ -166,14 +166,14 @@ export class Vault {
         if (!version) {
             throw new Exception(`Version '${packageVersion} was not found in '${packageName}'.`);
         }
-        return metaInfo.versions[packageVersion.toString()].dist.tarball;
+        return new URL(metaInfo.versions[packageVersion.toString()].dist.tarball);
     }
 
     private async downloadProjectMetaInfo(projectName: string): Promise<string> {
         this.logger.info(`Downloading meta-info for '${projectName}'...`);
         const projectFolder = this.getProjectFolder(projectName);
         Utilities.createFolder(projectFolder);
-        const metaInfoFile = `${projectFolder}/meta-info.json`;
+        const metaInfoFile = this.getProjectMetaInfoFile(projectName);
         await this.registry.downloadProjectMetaInfo(projectName, metaInfoFile);
         return metaInfoFile;
     }
