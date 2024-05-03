@@ -34,6 +34,11 @@ export class CLI extends CommandLineParser {
             description: "Switches NodeVault into debugging log level.",
             required: false
         });
+        this.defineFlagParameter({
+            parameterLongName: "--comparable-logs",
+            description: "For development: Removes timestamps from log files in order to make them comparable for tools like diff.",
+            required: false
+        });
     }
 
     protected async onExecute(): Promise<void> {
@@ -60,7 +65,12 @@ export class CLI extends CommandLineParser {
         if (debug.value) {
             logLevel = log4js.levels.DEBUG;
         }
-        await NoVaLogger.init(this.targetFolder, logLevel);
+        const comparableLogs = this.getFlagParameter("--comparable-logs");
+        let comparableLogsFlag = false;
+        if (comparableLogs.value) {
+            comparableLogsFlag = true;
+        }
+        await NoVaLogger.init(this.targetFolder, logLevel, comparableLogsFlag);
     }
 
     private async logFinish(start: number) {

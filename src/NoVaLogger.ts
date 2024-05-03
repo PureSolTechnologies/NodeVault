@@ -9,11 +9,11 @@ export class NoVaLogger {
 
     private static instance: NoVaLogger | undefined = undefined;
 
-    public static init(logFolder: string, logLevel: Level = log4js.levels.INFO): NoVaLogger {
+    public static init(logFolder: string, logLevel: Level = log4js.levels.INFO, comparableLogs: boolean = false): NoVaLogger {
         if (NoVaLogger.instance) {
             throw new Exception("NoVa logger was already initialized!");
         }
-        NoVaLogger.instance = new NoVaLogger(logFolder, logLevel);
+        NoVaLogger.instance = new NoVaLogger(logFolder, logLevel, comparableLogs);
         NoVaLogger.instance.init();
         return NoVaLogger.instance;
     }
@@ -35,12 +35,33 @@ export class NoVaLogger {
 
     readonly configuration: Configuration;
 
-    private constructor(readonly logFolder: string, readonly logLevel: Level) {
+    private constructor(readonly logFolder: string, readonly logLevel: Level, readonly comparableLogs: boolean) {
         const time = new Date().toISOString();
-        this.configuration = {
-            appenders: { node_modules: { type: "file", filename: `${this.logFolder}/nova-${time}.log` } },
-            categories: { default: { appenders: ["node_modules"], level: this.logLevel.levelStr } },
-        };
+        if (comparableLogs) {
+            this.configuration = {
+                appenders: {
+                    node_modules: {
+                        type: "file",
+                        filename: `${this.logFolder}/nova-${time}.log`,
+                        layout: {
+                            type: 'pattern',
+                            pattern: "[] [%p] %c - %m"
+                        }
+                    }
+                },
+                categories: { default: { appenders: ["node_modules"], level: this.logLevel.levelStr } },
+            };
+        } else {
+            this.configuration = {
+                appenders: {
+                    node_modules: {
+                        type: "file",
+                        filename: `${this.logFolder}/nova-${time}.log`
+                    }
+                },
+                categories: { default: { appenders: ["node_modules"], level: this.logLevel.levelStr } },
+            };
+        }
     }
 
     private init(): Configuration {
